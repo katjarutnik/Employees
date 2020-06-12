@@ -15,6 +15,7 @@ android {
         applicationId "com.katja.employeeslist"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
