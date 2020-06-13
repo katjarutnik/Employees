@@ -9,11 +9,11 @@ import java.util.*
 data class Employee(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val employeeId: Int,
+    var employeeId: Int,
     val name: String,
-    val birthday: String,
+    val birthday: String, // "day/month/year", eg. "03/12/1994"
     val gender: String,
-    val salary: String
+    val salary: Double
 ) {
     override fun toString() = name
 }

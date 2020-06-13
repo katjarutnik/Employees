@@ -13,7 +13,7 @@ interface EmployeeDao {
     fun getEmployees(): LiveData<List<Employee>>
 
     @Query("SELECT * FROM employees WHERE id = :employeeId")
-    fun getEmployee(employeeId: String): LiveData<Employee>
+    fun getEmployee(employeeId: Int): LiveData<Employee>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(employees: List<Employee>)
