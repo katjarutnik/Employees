@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.katja.employeeslist.ui.list.ListFragment"
+        android:name="com.katja.employeeslist.ui.fragments.list.ListFragment"
         android:label="ListFragment" />
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.katja.employeeslist.ui.fragments.analytics.AnalyticsFragment"
+        android:label="analytics_fragment"
+        tools:layout="@layout/analytics_fragment" />
 
 </navigation>
