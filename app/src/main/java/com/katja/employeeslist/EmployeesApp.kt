@@ -5,6 +5,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import com.katja.employeeslist.data.db.AppDatabase
 import com.katja.employeeslist.data.repository.Repository
 import com.katja.employeeslist.data.repository.RepositoryImpl
+import com.katja.employeeslist.ui.fragments.add.AddViewModelFactory
 import com.katja.employeeslist.ui.fragments.analytics.AnalyticsViewModelFactory
 import com.katja.employeeslist.ui.fragments.list.ListViewModelFactory
 import org.kodein.di.Kodein
@@ -24,6 +25,7 @@ class EmployeesApp : Application(), KodeinAware {
         bind<Repository>() with singleton { RepositoryImpl(instance()) }
         bind() from provider { ListViewModelFactory(instance()) }
         bind() from provider { AnalyticsViewModelFactory(instance()) }
+        bind() from provider { AddViewModelFactory(instance()) }
     }
 
     override fun onCreate() {

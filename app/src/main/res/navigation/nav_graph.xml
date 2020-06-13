@@ -8,11 +8,23 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.katja.employeeslist.ui.fragments.list.ListFragment"
-        android:label="ListFragment" />
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
     <fragment
         android:id="@+id/analyticsFragment"
         android:name="com.katja.employeeslist.ui.fragments.analytics.AnalyticsFragment"
         android:label="analytics_fragment"
         tools:layout="@layout/analytics_fragment" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.katja.employeeslist.ui.fragments.add.AddFragment"
+        android:label="AddFragment" >
+        <action
+            android:id="@+id/action_addFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 
 </navigation>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.katja.employeeslist.R
 import com.katja.employeeslist.data.db.entity.Employee
@@ -46,6 +47,8 @@ class ListFragment : ScopedFragment(), KodeinAware {
 
             initRecyclerView(result.toListItems())
 
+            floatingActionButton_Add.setOnClickListener { showEmployeesAddFragment(requireView()) }
+
             group_loading.visibility = View.GONE
         })
     }
@@ -64,5 +67,10 @@ class ListFragment : ScopedFragment(), KodeinAware {
         return this.map {
             ListItem(it)
         }
+    }
+
+    private fun showEmployeesAddFragment(view: View) {
+        val action = ListFragmentDirections.actionListFragmentToAddFragment()
+        Navigation.findNavController(view).navigate(action)
     }
 }

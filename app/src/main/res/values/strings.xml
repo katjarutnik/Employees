@@ -3,4 +3,9 @@
     <string name="profile_title">Profile</string>
     <string name="add_title">Add</string>
     <string name="analytics_title">Analytics</string>
+    <string name="loading">Loading</string>
+    <string-array name="employee_gender">
+        <item>female</item>
+        <item>male</item>
+    </string-array>
 </resources>

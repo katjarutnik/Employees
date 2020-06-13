@@ -19,4 +19,10 @@ class RepositoryImpl(private val employeeDao: EmployeeDao) : Repository {
             return@withContext employeeDao.getEmployee(employeeId)
         }
     }
+
+    override suspend fun insertEmployees(employee: List<Employee>) {
+        return withContext(Dispatchers.IO) {
+            return@withContext employeeDao.insertAll(employee)
+        }
+    }
 }
