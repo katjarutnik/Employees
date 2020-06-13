@@ -7,11 +7,13 @@ import java.util.*
 
 @Entity(tableName = "employees")
 data class Employee(
-    @PrimaryKey @ColumnInfo(name = "id") val employeeId: String,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val employeeId: Int,
     val name: String,
-    val birthday: Calendar = Calendar.getInstance(),
+    val birthday: String,
     val gender: String,
-    val salary: Double
+    val salary: String
 ) {
     override fun toString() = name
 }
