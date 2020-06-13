@@ -1,4 +1,4 @@
-package com.katja.employeeslist.ui.list
+package com.katja.employeeslist.ui.fragments.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

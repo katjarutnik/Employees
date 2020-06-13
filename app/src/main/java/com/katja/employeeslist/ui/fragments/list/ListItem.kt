@@ -1,4 +1,4 @@
-package com.katja.employeeslist.ui.list
+package com.katja.employeeslist.ui.fragments.list
 
 import com.katja.employeeslist.R
 import com.katja.employeeslist.data.db.entity.Employee

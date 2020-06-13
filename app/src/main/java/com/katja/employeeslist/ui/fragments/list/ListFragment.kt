@@ -1,11 +1,9 @@
-package com.katja.employeeslist.ui.list
+package com.katja.employeeslist.ui.fragments.list
 
-import android.content.ClipData
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,11 +28,8 @@ class ListFragment : ScopedFragment(), KodeinAware {
 
     private lateinit var viewModel : ListViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.list_fragment, container, false)
     }
 
@@ -48,7 +43,10 @@ class ListFragment : ScopedFragment(), KodeinAware {
         val employeeList = viewModel.employeeList.await()
         employeeList.observe(viewLifecycleOwner, Observer { result ->
             if (result == null) return@Observer
+
             initRecyclerView(result.toListItems())
+
+            group_loading.visibility = View.GONE
         })
     }
 
