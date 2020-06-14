@@ -1,5 +1,6 @@
 package com.katja.employeeslist.data.network
 
+import com.katja.employeeslist.data.db.entity.GoogleHit
 import com.katja.employeeslist.internal.Keys
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,8 +13,6 @@ const val BASE_URL = "https://www.googleapis.com/customsearch/"
 const val GOOGLE_SEARCH_RESULTS_COUNT = "5"
 const val GOOGLE_SEARCH_FIELDS = "items(title)"
 
-data class GoogleHit(val title: String)
-
 data class GoogleSearchResponse(val items: List<GoogleHit>)
 
 interface GoogleSearchApiService {
@@ -22,7 +21,8 @@ interface GoogleSearchApiService {
     suspend fun getGoogleHits(@Query("q") query: String): GoogleSearchResponse
 
     companion object {
-        operator fun invoke() : GoogleSearchApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor) : GoogleSearchApiService {
 
             val requestInterceptor = Interceptor { chain ->
 
@@ -38,7 +38,10 @@ interface GoogleSearchApiService {
                 return@Interceptor chain.proceed(request)
             }
 
-            val okHttpClient = OkHttpClient.Builder().addInterceptor(requestInterceptor).build()
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
+                .build()
 
             return Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
