@@ -14,7 +14,7 @@ class ProfileViewModel(
         repository.getEmployee(employeeId)
     }
 
-    val googleHits by lazyDeferred {
-        repository.getGoogleHits(employeeName)
+    val googleHitsOnEmployee by lazyDeferred {
+        repository.getGoogleHitsOnEmployee(employeeId, employeeName)
     }
 }

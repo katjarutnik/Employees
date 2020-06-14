@@ -21,13 +21,14 @@ class EmployeesApp : Application(), KodeinAware {
 
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { instance<AppDatabase>().employeeDao() }
+        bind() from singleton { instance<AppDatabase>().googleHitDao() }
 
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { GoogleSearchApiService(instance()) }
         bind<GoogleSearchNetworkDataSource>() with singleton {
             GoogleSearchNetworkDataSourceImpl(instance()) }
 
-        bind<Repository>() with singleton { RepositoryImpl(instance(), instance()) }
+        bind<Repository>() with singleton { RepositoryImpl(instance(), instance(), instance()) }
 
         bind() from provider { ListViewModelFactory(instance()) }
         bind() from provider { AnalyticsViewModelFactory(instance()) }

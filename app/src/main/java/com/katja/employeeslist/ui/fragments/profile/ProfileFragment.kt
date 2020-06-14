@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.katja.employeeslist.R
-import com.katja.employeeslist.data.network.GoogleSearchResponse
+import com.katja.employeeslist.data.db.entity.GoogleHit
 import com.katja.employeeslist.internal.EmployeeIdNotFoundException
 import com.katja.employeeslist.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
@@ -50,26 +50,24 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         bindEmployeeHits()
     }
 
+    private fun bindEmployeeHits() = launch(Dispatchers.Main) {
+        val hits = viewModel.googleHitsOnEmployee.await()
+        hits.observe(viewLifecycleOwner, Observer {
+            if(it==null)return@Observer
+            initRecyclerView(it.hits.toGoogleHitItems())
+        })
+    }
+
     private fun bindEmployeeInfo() = launch(Dispatchers.Main) {
         val employee = viewModel.employee.await()
         employee.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-
             textViewName.text = it.name
             textViewBirthday.text = it.birthday
             textViewGender.text = it.gender
             textViewSalary.text = it.salary.toString()
         })
     }
-
-    private fun bindEmployeeHits() = launch(Dispatchers.Main) {
-        val hits = viewModel.googleHits.await()
-        hits.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
-            initRecyclerView(it.toGoogleHitItems())
-        })
-    }
-
 
     private fun initRecyclerView(items : List<GoogleHitItem>) {
         val groupAdapter = GroupAdapter<GroupieViewHolder>().apply {
@@ -81,8 +79,8 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun GoogleSearchResponse.toGoogleHitItems() : List<GoogleHitItem> {
-        return this.items.map {
+    private fun List<GoogleHit>.toGoogleHitItems() : List<GoogleHitItem> {
+        return this.map {
             GoogleHitItem(it.title)
         }
     }

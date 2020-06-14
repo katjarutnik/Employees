@@ -9,11 +9,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.katja.employeeslist.data.db.entity.Employee
+import com.katja.employeeslist.data.db.entity.GoogleHit
 
-@Database(entities = [Employee::class], version = 1, exportSchema = false)
+@Database(entities = [Employee::class, GoogleHit::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun employeeDao(): EmployeeDao
+    abstract fun googleHitDao(): GoogleHitDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null
