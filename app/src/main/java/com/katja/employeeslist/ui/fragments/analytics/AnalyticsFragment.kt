@@ -48,39 +48,19 @@ class AnalyticsFragment : ScopedFragment(), KodeinAware {
         val employeeList = viewModel.employees.await()
         employeeList.observe(viewLifecycleOwner, Observer { result ->
             if (result == null) return@Observer
-
-            initAgeChart(result.getAgeList())
-            initSalaryChart(result.getSalaryList())
+            val ageList = result.getAgeList()
+            val salaryList = result.getSalaryList()
             initGenderChart(result.groupByGender().toDataEntryList())
+            textViewAverageAge.text = getAverageAge(ageList).toString()
+            textViewMedianAge.text = getMedianAge(ageList).toString()
+            textViewMaxSalary.text = salaryList.max().toString()
         })
-    }
-
-    private fun initAgeChart(data: List<Int>) {
-        val averageAge = getAverageAge(data)
-        val medianAge = getMedianAge(data)
-        val dataReady = data.toDataEntryList()
-        APIlib.getInstance().setActiveAnyChartView(anyChartViewAge)
-        val chart = AnyChart.column()
-        chart.data(dataReady)
-        chart.title("AGE (average = $averageAge, median = $medianAge)")
-        anyChartViewAge.setChart(chart)
-    }
-
-    private fun initSalaryChart(data: List<Double>) {
-        val maxSalary = data.max()
-        val dataReady = data.toDataEntryList()
-        APIlib.getInstance().setActiveAnyChartView(anyChartViewSalary)
-        val chart = AnyChart.line()
-        chart.data(dataReady)
-        chart.title("SALARY (max = $maxSalary)")
-        anyChartViewSalary.setChart(chart)
     }
 
     private fun initGenderChart(data: List<DataEntry>) {
         APIlib.getInstance().setActiveAnyChartView(anyChartViewGender)
         val chart = AnyChart.pie()
         chart.data(data)
-        chart.title("GENDER")
         anyChartViewGender.setChart(chart)
     }
 
