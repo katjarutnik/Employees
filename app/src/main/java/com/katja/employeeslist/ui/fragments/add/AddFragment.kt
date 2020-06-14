@@ -45,9 +45,9 @@ class AddFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun showDialogGenderPicker() {
-        val listItems = resources.getStringArray(R.array.employee_gender)
+        val listItems = resources.getStringArray(R.array.employee_gender_array)
         val mBuilder = AlertDialog.Builder(requireContext())
-        mBuilder.setTitle("Employee gender")
+        mBuilder.setTitle(getString(R.string.employee_gender))
         mBuilder.setSingleChoiceItems(listItems, -1) { dialogInterface, i ->
             buttonGender.text = listItems[i]
             dialogInterface.dismiss()

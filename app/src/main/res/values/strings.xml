@@ -4,7 +4,20 @@
     <string name="add_title">Add</string>
     <string name="analytics_title">Analytics</string>
     <string name="loading">Loading</string>
-    <string-array name="employee_gender">
+    <string name="name">Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="salary">Salary</string>
+    <string name="top_5_google_hits">TOP 5 GOOGLE HITS</string>
+    <string name="average_age">Average age</string>
+    <string name="median_age">Median age</string>
+    <string name="max_salary">Max salary</string>
+    <string name="error_ncheck_if_your_data_input_is_correct">Error!\nCheck if your data input is correct.</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="add_employee">ADD EMPLOYEE</string>
+    <string name="employee_gender">Employee gender</string>
+    <string-array name="employee_gender_array">
         <item>female</item>
         <item>male</item>
     </string-array>
