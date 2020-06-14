@@ -75,6 +75,8 @@ dependencies {
     implementation "com.xwray:groupie-kotlin-android-extensions:$rootProject.groupieVersion"
     implementation "com.github.AnyChart:AnyChart-Android:$rootProject.chartVersion"
     implementation "com.jakewharton.threetenabp:threetenabp:$rootProject.threetenabpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
 
 
     // Testing dependencies
