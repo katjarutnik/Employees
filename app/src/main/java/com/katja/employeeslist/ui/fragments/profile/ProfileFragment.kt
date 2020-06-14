@@ -46,13 +46,12 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
         viewModel = ViewModelProvider(this, viewModelFactoryInstanceFactory(employeeId, employeeName)).get(
             ProfileViewModel::class.java)
 
-        bindUI()
+        bindEmployeeInfo()
+        bindEmployeeHits()
     }
 
-    private fun bindUI() = launch(Dispatchers.Main) {
+    private fun bindEmployeeInfo() = launch(Dispatchers.Main) {
         val employee = viewModel.employee.await()
-        val hits = viewModel.googleHits.await()
-
         employee.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
@@ -61,7 +60,10 @@ class ProfileFragment : ScopedFragment(), KodeinAware {
             textViewGender.text = it.gender
             textViewSalary.text = it.salary.toString()
         })
+    }
 
+    private fun bindEmployeeHits() = launch(Dispatchers.Main) {
+        val hits = viewModel.googleHits.await()
         hits.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             initRecyclerView(it.toGoogleHitItems())
