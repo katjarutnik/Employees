@@ -1,7 +1,6 @@
 package com.katja.employeeslist.data.db
 
 import androidx.room.TypeConverter
-import java.util.*
 
 class Converters {
     @TypeConverter

@@ -13,13 +13,13 @@ import com.katja.employeeslist.data.db.entity.Employee
 import com.katja.employeeslist.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import kotlinx.android.synthetic.main.list_fragment.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ListFragment : ScopedFragment(), KodeinAware {
 
@@ -42,13 +42,12 @@ class ListFragment : ScopedFragment(), KodeinAware {
 
     private fun bindUI() = launch(Dispatchers.Main) {
         val employeeList = viewModel.employeeList.await()
+
+        floatingActionButton_Add.setOnClickListener { showEmployeesAddFragment(requireView()) }
+
         employeeList.observe(viewLifecycleOwner, Observer { result ->
             if (result == null) return@Observer
-
             initRecyclerView(result.toListItems())
-
-            floatingActionButton_Add.setOnClickListener { showEmployeesAddFragment(requireView()) }
-
             group_loading.visibility = View.GONE
         })
     }
@@ -61,6 +60,11 @@ class ListFragment : ScopedFragment(), KodeinAware {
             layoutManager = LinearLayoutManager(this@ListFragment.context)
             adapter = groupAdapter
         }
+        groupAdapter.setOnItemClickListener { item, view ->
+            (item as? ListItem)?.let {
+                showEmployeesProfileFragment(view, it.employee.employeeId)
+            }
+        }
     }
 
     private fun List<Employee>.toListItems() : List<ListItem> {
@@ -71,6 +75,11 @@ class ListFragment : ScopedFragment(), KodeinAware {
 
     private fun showEmployeesAddFragment(view: View) {
         val action = ListFragmentDirections.actionListFragmentToAddFragment()
+        Navigation.findNavController(view).navigate(action)
+    }
+
+    private fun showEmployeesProfileFragment(view: View, employeeId: Int) {
+        val action = ListFragmentDirections.actionListFragmentToProfileFragment(employeeId)
         Navigation.findNavController(view).navigate(action)
     }
 }

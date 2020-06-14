@@ -8,13 +8,11 @@ import com.katja.employeeslist.data.repository.RepositoryImpl
 import com.katja.employeeslist.ui.fragments.add.AddViewModelFactory
 import com.katja.employeeslist.ui.fragments.analytics.AnalyticsViewModelFactory
 import com.katja.employeeslist.ui.fragments.list.ListViewModelFactory
+import com.katja.employeeslist.ui.fragments.profile.ProfileViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 
 class EmployeesApp : Application(), KodeinAware {
     override val kodein: Kodein =Kodein.lazy {
@@ -26,6 +24,7 @@ class EmployeesApp : Application(), KodeinAware {
         bind() from provider { ListViewModelFactory(instance()) }
         bind() from provider { AnalyticsViewModelFactory(instance()) }
         bind() from provider { AddViewModelFactory(instance()) }
+        bind() from factory { employeeId: Int -> ProfileViewModelFactory(instance(), employeeId) }
     }
 
     override fun onCreate() {
