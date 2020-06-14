@@ -62,7 +62,7 @@ class ListFragment : ScopedFragment(), KodeinAware {
         }
         groupAdapter.setOnItemClickListener { item, view ->
             (item as? ListItem)?.let {
-                showEmployeesProfileFragment(view, it.employee.employeeId)
+                showEmployeesProfileFragment(view, it.employee.employeeId, it.employee.name)
             }
         }
     }
@@ -78,8 +78,8 @@ class ListFragment : ScopedFragment(), KodeinAware {
         Navigation.findNavController(view).navigate(action)
     }
 
-    private fun showEmployeesProfileFragment(view: View, employeeId: Int) {
-        val action = ListFragmentDirections.actionListFragmentToProfileFragment(employeeId)
+    private fun showEmployeesProfileFragment(view: View, employeeId: Int, employeeName: String) {
+        val action = ListFragmentDirections.actionListFragmentToProfileFragment(employeeId, employeeName)
         Navigation.findNavController(view).navigate(action)
     }
 }

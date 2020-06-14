@@ -39,6 +39,9 @@
         <argument
             android:name="employeeId"
             app:argType="integer" />
+        <argument
+            android:name="employeeName"
+            app:argType="string" />
     </fragment>
 
 </navigation>

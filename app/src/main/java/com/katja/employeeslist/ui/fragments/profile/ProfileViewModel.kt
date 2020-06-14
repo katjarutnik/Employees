@@ -6,11 +6,15 @@ import com.katja.employeeslist.internal.lazyDeferred
 
 class ProfileViewModel(
     private val repository: Repository,
-    private val employeeId: Int
+    private val employeeId: Int,
+    private val employeeName: String
 ): ViewModel() {
 
     val employee by lazyDeferred {
         repository.getEmployee(employeeId)
     }
 
+    val googleHits by lazyDeferred {
+        repository.getGoogleHits(employeeName)
+    }
 }
