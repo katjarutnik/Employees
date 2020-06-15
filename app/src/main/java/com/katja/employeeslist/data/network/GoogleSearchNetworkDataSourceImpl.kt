@@ -16,6 +16,8 @@ class GoogleSearchNetworkDataSourceImpl(
             downloadedGoogleHits.postValue(fetched)
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
+        } catch (e: Exception) {
+            Log.e("Connectivity", e.localizedMessage ?: "Probably too many requests")
         }
     }
 
